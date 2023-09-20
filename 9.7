@@ -1,0 +1,66 @@
+#include <iostream>
+
+class Time {
+private:
+    int hours;
+    int minutes;
+    int seconds;
+
+public:
+    Time(int h, int m, int s) : hours(h), minutes(m), seconds(s) {}
+
+    Time operator+(int minutesToAdd) {
+        Time result(hours, minutes, seconds);
+        int totalMinutes = hours * 60 + minutes + minutesToAdd;
+        result.hours = totalMinutes / 60;
+        result.minutes = totalMinutes % 60;
+        return result;
+    }
+
+    int operator-(Time otherTime) {
+        int thisMinutes = hours * 60 + minutes;
+        int otherMinutes = otherTime.hours * 60 + otherTime.minutes;
+        return thisMinutes - otherMinutes;
+    }
+
+    Time operator++(int) {
+        Time temp(hours, minutes, seconds);
+        minutes += 1;
+        if (minutes == 60) {
+            hours += 1;
+            minutes = 0;
+        }
+        return temp;
+    }
+
+    Time& operator++() {
+        minutes += 1;
+        if (minutes == 60) {
+            hours += 1;
+            minutes = 0;
+        }
+        return *this;
+    }
+
+    void displayTime() {
+        std::cout << hours << ":" << minutes << ":" << seconds << std::endl;
+    }
+};
+
+int main() {
+    Time currentTime(23, 45, 30);
+    Time midnight(24, 0, 0);
+
+    int minutesUntilMidnight = midnight - currentTime;
+    std::cout << "Кількість хвилин до опівночі: " << minutesUntilMidnight << " хвилин" << std::endl;
+
+    currentTime = currentTime + 100;
+    std::cout << "Час після додавання 100 хвилин: ";
+    currentTime.displayTime();
+
+    ++currentTime;
+    std::cout << "Час після інкременту: ";
+    currentTime.displayTime();
+
+    return 0;
+}
