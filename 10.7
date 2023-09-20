@@ -1,0 +1,61 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Lesson {
+    string subject;
+    int startHour;
+    int startMinute;
+    int startSecond;
+    string classroom;
+};
+
+int main() {
+    int currentHour, currentMinute, currentSecond;
+    vector<Lesson> schedule;
+
+    cout << "Введіть поточний час (години хвилини секунди): ";
+    cin >> currentHour >> currentMinute >> currentSecond;
+
+    int numLessons;
+    cout << "Введіть кількість занять у розкладі: ";
+    cin >> numLessons;
+
+    for (int i = 0; i < numLessons; ++i) {
+        Lesson lesson;
+        cout << "Заняття #" << i + 1 << ":\n";
+        cout << "Дисципліна: ";
+        cin.ignore(); 
+        getline(cin, lesson.subject);
+        cout << "Година початку: ";
+        cin >> lesson.startHour;
+        cout << "Хвилина початку: ";
+        cin >> lesson.startMinute;
+        cout << "Секунда початку: ";
+        cin >> lesson.startSecond;
+        cout << "Аудиторія: ";
+        cin.ignore(); 
+        getline(cin, lesson.classroom);
+
+        schedule.push_back(lesson);
+    }
+
+    bool found = false;
+    for (const Lesson& lesson : schedule) {
+        if (lesson.startHour == currentHour &&
+            lesson.startMinute == currentMinute &&
+            lesson.startSecond == currentSecond) {
+            cout << "Зараз розпочинається заняття з " << lesson.subject << " в аудиторії " << lesson.classroom << ".\n";
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "На жаль, зараз немає занять за розкладом.\n";
+    }
+
+    return 0;
+}
