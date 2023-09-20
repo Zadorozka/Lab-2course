@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+struct Employee {
+    string fullName;
+    int employeeCode;
+    string department;
+    double salary;
+    int workDuration;
+
+    Employee(string name, int code, string dept, double sal, int duration)
+        : fullName(name), employeeCode(code), department(dept), salary(sal), workDuration(duration) {}
+};
+
+void printEmployee(const Employee& emp) {
+    cout << "П.І.Б.: " << emp.fullName << endl;
+    cout << "Шифр (табельний номер): " << emp.employeeCode << endl;
+    cout << "Відділ: " << emp.department << endl;
+    cout << "Заробітна плата: " << emp.salary << " грн" << endl;
+    cout << "Термін роботи: " << emp.workDuration << " міс." << endl;
+    cout << endl;
+}
+
+int main() {
+    int numEmployees;
+    cout << "Введіть кількість працівників: ";
+    cin >> numEmployees;
+
+    vector<Employee> employees;
+
+    for (int i = 0; i < numEmployees; i++) {
+        cout << "Введіть дані для працівника #" << i + 1 << ":" << endl;
+        string name, dept;
+        int code, duration;
+        double sal;
+
+        cin.ignore(); 
+        cout << "П.І.Б.: ";
+        getline(cin, name);
+        cout << "Шифр (табельний номер): ";
+        cin >> code;
+        cin.ignore();
+        cout << "Відділ: ";
+        getline(cin, dept);
+        cout << "Заробітна плата: ";
+        cin >> sal;
+        cout << "Термін роботи (у місяцях): ";
+        cin >> duration;
+
+        employees.push_back(Employee(name, code, dept, sal, duration));
+    }
+
+    sort(employees.begin(), employees.end(), [](const Employee& a, const Employee& b) {
+        return a.fullName < b.fullName;
+    });
+
+    cout << "\nІнформація про всіх працівників:\n";
+    for (const Employee& emp : employees) {
+        printEmployee(emp);
+    }
+
+    cout << "Про працівників з заробітною платою більше 4000 грн:\n";
+    bool highSalaryFound = false;
+    for (const Employee& emp : employees) {
+        if (emp.salary > 4000) {
+            printEmployee(emp);
+            highSalaryFound = true;
+        }
+    }
+
+    if (!highSalaryFound) {
+        cout << "Працівників з заробітною платою більше 4000 грн немає.\n";
+    }
+
+    return 0;
+}
