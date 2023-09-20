@@ -1,0 +1,26 @@
+#include <iostream>
+#include <vector>
+
+int main() {
+    int N;
+    std::cout << "Введіть N: ";
+    std::cin >> N;
+    int m[3] = {1, 2, 3};
+    std::vector<int> sequence;
+    for (int i = 0; i < 3; ++i) {
+        sequence.push_back(m[i]);
+    }
+    for (int i = 3; i <= N; ++i) {
+        int mi = (m[i - 1] + m[i - 3]) / (2 * m[i - 2]);
+        sequence.push_back(mi);
+        m[i % 3] = mi; // Оновлюємо m0, m1, m2
+    }
+    std::cout << "Послідовність:" << std::endl;
+    for (int i = 0; i < N; ++i) {
+        std::cout << sequence[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+
