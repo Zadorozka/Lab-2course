@@ -1,0 +1,28 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int hours, minutes, seconds;
+
+    cout << "Введіть години: ";
+    cin >> hours;
+
+    cout << "Введіть хвилини: ";
+    cin >> minutes;
+
+    cout << "Введіть секунди: ";
+    cin >> seconds;
+
+    int minutesToMidnight = (23 - hours) * 60 + (59 - minutes);
+
+    cout << "Кількість хвилин до опівночі: " << minutesToMidnight << " хвилин" << endl;
+
+    int totalMinutes = hours * 60 + minutes + 100;
+    hours = totalMinutes / 60;
+    minutes = totalMinutes % 60;
+
+    cout << "Час після додавання 100 хвилин: " << hours << ":" << minutes << ":" << seconds << endl;
+
+    return 0;
+}
