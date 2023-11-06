@@ -1,0 +1,65 @@
+#include <iostream>
+
+class Fraction {
+private:
+    int numerator;
+    int denominator;
+
+public:
+    // Конструктор класу
+    Fraction(int num, int den) : numerator(num), denominator(den) {}
+
+    // Функція для виводу дробу
+    void display() {
+        std::cout << numerator << "/" << denominator << std::endl;
+    }
+
+    // Функція для віднімання дробів
+    Fraction subtract(const Fraction& other) {
+        int resultNum = (numerator * other.denominator) - (other.numerator * denominator);
+        int resultDen = denominator * other.denominator;
+        return Fraction(resultNum, resultDen);
+    }
+
+    // Функція для множення дробів
+    Fraction multiply(const Fraction& other) {
+        int resultNum = numerator * other.numerator;
+        int resultDen = denominator * other.denominator;
+        return Fraction(resultNum, resultDen);
+    }
+
+    // Функція для порівняння дробів
+    bool isEqual(const Fraction& other) {
+        return (numerator * other.denominator) == (other.numerator * denominator);
+    }
+};
+
+int main() {
+    Fraction fraction1(1, 2);
+    Fraction fraction2(3, 4);
+
+    std::cout << "Дріб 1: ";
+    fraction1.display();
+
+    std::cout << "Дріб 2: ";
+    fraction2.display();
+
+    // Віднімання дробів
+    Fraction subtracted = fraction1.subtract(fraction2);
+    std::cout << "Віднімання дробів: ";
+    subtracted.display();
+
+    // Множення дробів
+    Fraction multiplied = fraction1.multiply(fraction2);
+    std::cout << "Множення дробів: ";
+    multiplied.display();
+
+    // Порівняння дробів
+    if (fraction1.isEqual(fraction2)) {
+        std::cout << "Дроби рівні." << std::endl;
+    } else {
+        std::cout << "Дроби не рівні." << std::endl;
+    }
+
+    return 0;
+}
