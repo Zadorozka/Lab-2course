@@ -1,0 +1,60 @@
+#include <iostream>
+
+class RatNum {
+private:
+    int numerator;
+    int denominator;
+
+public:
+    // Конструктор класу
+    RatNum(int num, int den) : numerator(num), denominator(den) {
+        if (denominator == 0) {
+            std::cerr << "Помилка: Знаменник не може бути рівним нулю." << std::endl;
+            // Тут можна додати код для обробки помилки, якщо потрібно.
+        }
+    }
+
+    // Метод для виведення дробу на екран
+    void print() {
+        std::cout << numerator << '/' << denominator;
+    }
+
+    // Метод для множення двох дробів
+    RatNum multiply(const RatNum &other) {
+        int newNumerator = numerator * other.numerator;
+        int newDenominator = denominator * other.denominator;
+        return RatNum(newNumerator, newDenominator);
+    }
+
+    // Метод для ділення двох дробів
+    RatNum divide(const RatNum &other) {
+        int newNumerator = numerator * other.denominator;
+        int newDenominator = denominator * other.numerator;
+        return RatNum(newNumerator, newDenominator);
+    }
+};
+
+int main() {
+    RatNum fraction1(3, 4);
+    RatNum fraction2(2, 5);
+
+    std::cout << "Дріб 1: ";
+    fraction1.print();
+    std::cout << std::endl;
+
+    std::cout << "Дріб 2: ";
+    fraction2.print();
+    std::cout << std::endl;
+
+    RatNum product = fraction1.multiply(fraction2);
+    std::cout << "Результат множення: ";
+    product.print();
+    std::cout << std::endl;
+
+    RatNum quotient = fraction1.divide(fraction2);
+    std::cout << "Результат ділення: ";
+    quotient.print();
+    std::cout << std::endl;
+
+    return 0;
+}
